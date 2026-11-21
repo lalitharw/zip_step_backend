@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
 
 class Activity extends Model
 {
+    use SoftDeletes;
     protected $guarded = [];
 
     protected $appends = [
@@ -21,9 +23,13 @@ class Activity extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function activityPoints()
+    public function points()
     {
         return $this->hasMany(ActivityPoint::class, "activity_id");
+    }
+
+    public function pauses(){
+        return $this->hasMany(ActivityPause::class,"activity_id");
     }
 
     protected function formattedStartTime(): Attribute {

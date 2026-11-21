@@ -20,7 +20,6 @@ class ActivityService
 
     public function store(array $data)
     {
-        
         $activity = auth()->user()->activities()->firstOrCreate(
             [
             "client_id" => $data["client_id"]
@@ -110,6 +109,18 @@ class ActivityService
 
     public function delete(int $activity_id)
     {
-        auth()->user()->activities()->findOrFail($activity_id)->delete();
+       return DB::Transaction(function() use ($activity_id) {
+            $activity = auth()->user()->activities()->withTrashed()->findOrFail($activity_id);
+            if($activity->trashed()){
+                return $activity;
+            }
+            $activity->points()->delete();
+            $activity->pauses()->delete();
+            $activity->delete();
+
+            return [
+                "activity"=> $activity
+            ];
+       });
     }
 }

@@ -45,8 +45,8 @@ class ActivityController extends Controller
 
     public function delete(int $activity_id)
     {
-        $this->activityService->delete($activity_id);
-        return $this->successResponse(message: "Activity Deleted Successfully!");
+        $result = $this->activityService->delete($activity_id);
+        return $this->successResponse(data: $result,message: "Activity Deleted Successfully!");
     }
 
     public function getActiveActivityById(int $activity_id){

@@ -26,7 +26,8 @@ class ActivityPointService
                 "speed" => $point['speed'],
                 "altitude" => $point['altitude'],
                 "created_at" => $now,
-                "updated_at" => $now
+                "updated_at" => $now,
+                "user_id" => auth()->user()->id
             ];
         }
         ActivityPoint::insert($points);
@@ -34,6 +35,11 @@ class ActivityPointService
         return [
             "success" => true
         ];
+    }
+
+
+    public function delete(int $activity_id) {
+        auth()->user()->activityPoints()->where("activity_id",$activity_id)->delete();
     }
 
 

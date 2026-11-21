@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::prefix("v1")->group(function () {
+Route::domain(config('app.api_domain'))->prefix("v1")->group(function () {
 
     // testing api endpoint 1
     Route::get("test", function () {

@@ -52,6 +52,18 @@ class User extends Authenticatable
     }
 
 
+    public function activityPoints()
+    {
+        return $this->hasMany(ActivityPoint::class,"user_id");
+    }
+
+
+    public function activityPauses()
+    {
+        return $this->hasMany(ActivityPause::class,"user_id");
+    }
+
+
     // local scopes
 
     public function scopeToday($query){
