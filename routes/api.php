@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\Api\v1\ActivityController;
 use App\Http\Controllers\Api\v1\ActivityPointController;
 use App\Http\Controllers\Api\v1\ActivityPauseController;
+use App\Http\Controllers\Api\v1\ActivitySyncController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,11 @@ Route::domain(config('app.api_domain'))->prefix("v1")->group(function () {
 
         Route::prefix("activity-pauses")->controller(ActivityPauseController::class)->group(function(){
             Route::post("/","store");
+        });
+
+        Route::prefix("sync")->controller(ActivitySyncController::class)->group(function(){
+            Route::get("activities","activities");
+            Route::get("activities/{activity_id}/points","points");
         });
     });
 });
