@@ -10,6 +10,7 @@ class ActivityPointService
 
     public function store(array $data)
     {
+        
         $now = now();
         $points = [];
         $activity_id = $data['activity_id'];
@@ -18,10 +19,13 @@ class ActivityPointService
             if(ActivityPoint::where("client_id",$point['client_id'])->exists()){
                 continue;
             }
+
             $points[] = [
                 "activity_id" => $activity_id,
                 "latitude" => $point['latitude'],
                 "longitude" => $point['longitude'],
+                "raw_latitude" => $point['raw_latitude'] ?? null,
+                "raw_longitude" => $point['raw_longitude'] ?? null, 
                 "client_id" => $point['client_id'],
                 "speed" => $point['speed'],
                 "altitude" => $point['altitude'],
@@ -29,7 +33,9 @@ class ActivityPointService
                 "updated_at" => $now,
                 "user_id" => auth()->user()->id
             ];
+           
         }
+
         ActivityPoint::insert($points);
       
         return [
@@ -41,19 +47,4 @@ class ActivityPointService
     public function delete(int $activity_id) {
         auth()->user()->activityPoints()->where("activity_id",$activity_id)->delete();
     }
-
-
-    // public function blukStore(object $allPoints, int $activity_id)
-    // {
-    //     ActivityPoint::insert(
-    //         $allPoints->map(fn($point, $index) => [
-    //             "activity_id" => $activity_id,
-    //             "order" => $index,
-    //             "latitude" => $point[0],
-    //             "longitude" => $point[1],
-    //             "created_at" => now(),
-    //             "updated_at" => now()
-    //         ])->toArray()
-    //     );
-    // }
 }

@@ -12,7 +12,8 @@ class ActivityPauseService {
         foreach($data['pauses'] as $pause){
             $activity->pauses()->updateOrCreate(
                 [
-                    "client_id" => $pause['client_id']
+                    "client_id" => $pause['client_id'],
+                    "user_id" => auth()->user()->id
                 ],
                 [
                     "activity_id" => $data['activity_id'],

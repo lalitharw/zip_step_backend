@@ -20,7 +20,8 @@ class ActivityService
 
     public function store(array $data)
     {
-        $activity = auth()->user()->activities()->firstOrCreate(
+        \Log::info($data);
+        $activity = auth()->user()->activities()->updateOrCreate(
             [
             "client_id" => $data["client_id"]
             ],
@@ -31,8 +32,10 @@ class ActivityService
                 "duration" => $data['duration'],
                 "average_speed" => $data['average_speed'],
                 "average_pace" => $data['average_pace'],
-                "elevation_gain" => $data['elevation_gain'],
-                "max_speed" => $data['max_speed']
+                "elevation_gain" => $data['elevation_gain'] ?? null,
+                "elevation_loss" => $data['elevation_loss'] ?? null,
+                "max_speed" => $data['max_speed'],
+                "map_image_path" => $data['map_image_path'] ?? null
             ]);
 
         return [

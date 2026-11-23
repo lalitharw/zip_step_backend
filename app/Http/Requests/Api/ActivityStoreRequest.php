@@ -30,9 +30,10 @@ class ActivityStoreRequest extends FormRequest
     "duration"       => "required|numeric",
     "average_speed"  => "required|numeric",
     "average_pace"   => "required|numeric",
-    "elevation_gain" => "required|numeric",
+    "elevation_gain" => "nullable|numeric",
+    "elevation_loss" => "nullable|numeric",
     "max_speed"      => "required|numeric",
-    "map_image_url"  => "nullable",
+    "map_image_path"  => "nullable",
 ];   
     }
 }

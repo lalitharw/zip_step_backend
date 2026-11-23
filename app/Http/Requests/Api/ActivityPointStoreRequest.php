@@ -33,6 +33,8 @@ class ActivityPointStoreRequest extends FormRequest
             "points.*.accuracy"  => "required|numeric|min:0",
             "points.*.altitude"  => "required|numeric",
             "points.*.speed"     => "required|numeric|min:0",
+            "points.*.raw_latitude" => "nullable|numeric|between:-90,90",
+            "points.*.raw_longitude" => "nullable|numeric|between:-90,90",
         ];
     }   
 }

@@ -26,9 +26,10 @@ class ActivityPauseStoreRequest extends FormRequest
             "activity_id" => "required|exists:activities,id,user_id," . auth()->user()->id,
             "pauses" => "required|array|min:1",
             "pauses.*" => "required|array",
+            // "pauses.*.user_id" => "required|exists:users,id",
             "pauses.*.client_id" => "required|uuid",
             "pauses.*.pause_at" => "required|date",
-            "pause.*.resume_at" => "nullable|date"
+            "pauses.*.resume_at" => "nullable|date"
         ];
     }
 }
