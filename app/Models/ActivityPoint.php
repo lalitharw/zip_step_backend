@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class ActivityPoint extends Model
 {
     use SoftDeletes;
     protected $guarded = [];
     protected $casts = [
-        "co_ordinate_data" => "array"
+        "co_ordinate_data" => "array",
     ];
 
 
@@ -18,4 +19,6 @@ class ActivityPoint extends Model
     {
         return $this->belongsTo(Activity::class);
     }
+
+
 }

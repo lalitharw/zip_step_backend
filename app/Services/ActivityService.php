@@ -20,7 +20,6 @@ class ActivityService
 
     public function store(array $data)
     {
-        \Log::info($data);
         $activity = auth()->user()->activities()->updateOrCreate(
             [
             "client_id" => $data["client_id"]
@@ -71,20 +70,6 @@ class ActivityService
 
     public function markAsComplete(int $activity_id)
     {
-        $key = "activity:{$activity_id}:points";
-        // $raw = Redis::lrange($key, 0, -1);
-        // $allPoints = collect();
-        // DB::transaction(function () use ($activity_id, $raw, &$allPoints) {
-        //     if (!empty($raw)) {
-        //         $allPoints = collect($raw)->map(fn($item) => json_decode($item, true))->sortBy("sequence")->flatMap(fn($b) => $b["co_ordinates"])->values();
-        //         $this->activityPointService->blukStore($allPoints, $activity_id);
-        //         }
-        //         auth()->user()->activities()->find($activity_id)->update([
-        //             "end_time" => now()
-        //             ]);
-        //             });
-        //             processActivityStats::dispatch($allPoints->toArray(), $activity_id)->afterCommit();
-        // Redis::del($key);
            auth()->user()->activities()->find($activity_id)->update([
                     "end_time" => now(),
                     "status" => "completed"

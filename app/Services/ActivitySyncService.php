@@ -12,11 +12,11 @@ class ActivitySyncService
     }
 
     public function points(int $activity_id){
-        $activity = auth()->user()->activities()->findOrFail($activity_id);
-        $points = $activity->points()->OrderBy("id")->cursorPaginate(100);
-        
+        $points = auth()->user()->points()->where("activity_id",$activity_id)->orderBy("point_added")->orderBy("id")->cursorPaginate(1000);
         return [
             "points" => $points
         ];
     }
+
+
 }

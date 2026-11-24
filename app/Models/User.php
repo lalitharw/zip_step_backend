@@ -52,7 +52,7 @@ class User extends Authenticatable
     }
 
 
-    public function activityPoints()
+    public function points()
     {
         return $this->hasMany(ActivityPoint::class,"user_id");
     }
